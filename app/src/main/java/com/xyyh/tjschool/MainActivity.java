@@ -51,7 +51,7 @@ public class MainActivity extends WebViewActivity {
         webView.setWebContentsDebuggingEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new JSInterface(this), "Android");
-        webView.loadUrl("http://112.74.160.10/#/");
+        webView.loadUrl("http://101.200.59.182:88/cap/");
 //        webView.loadUrl("http://172.21.92.62/#/");
     }
 
