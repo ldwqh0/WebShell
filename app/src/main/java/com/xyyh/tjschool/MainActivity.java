@@ -53,6 +53,7 @@ public class MainActivity extends WebViewActivity {
         webView.setWebContentsDebuggingEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setCacheMode(LOAD_DEFAULT);
+        webView.addJavascriptInterface(new JSInterface(this), "Android");
         webView.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
@@ -62,7 +63,6 @@ public class MainActivity extends WebViewActivity {
             }
             return false;
         });
-        webView.addJavascriptInterface(new JSInterface(this), "Android");
         webView.loadUrl("http://101.200.59.182:88/cap/");
     }
 

@@ -11,6 +11,9 @@ import com.baidu.location.LocationClientOption;
 import com.google.zxing.client.android.CaptureActivity;
 import com.xyyh.tjschool.MainActivity;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import static com.xyyh.android.webkit.Codes.*;
 
 public class JSInterface {
@@ -20,21 +23,29 @@ public class JSInterface {
 
     private BDLocation location;
 
+    private Queue<Object> taskQueue = new ConcurrentLinkedQueue<>();
+
     public JSInterface(MainActivity context) {
         this.activity = context;
-        locationClient = new LocationClient(activity.getApplicationContext());
+        this.locationClient = new LocationClient(activity.getApplicationContext());
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);
         option.setOpenAutoNotifyMode();
         option.setIgnoreKillProcess(false);
         option.setIsNeedAddress(true);
+        option.setIsNeedLocationDescribe(true);
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setIsNeedLocationDescribe(true);
         locationClient.setLocOption(option);
         locationClient.registerLocationListener(new BDAbstractLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
+                // 当接收到位置信息之后，结束定位
+                JSInterface.this.locationClient.stop();
                 JSInterface.this.location = bdLocation;
+                while (taskQueue.poll() != null) {
+                    JSInterface.this.postLocation();
+                }
             }
         });
         locationClient.start();
@@ -65,6 +76,13 @@ public class JSInterface {
      */
     @JavascriptInterface
     public void getLocation() {
+        taskQueue.add(new Object());
+        if (!locationClient.isStarted()) {
+            locationClient.start();
+        }
+    }
+
+    private void postLocation() {
         WebView webView = activity.getWebView();
         webView.post(new Runnable() {
             @Override
@@ -81,6 +99,7 @@ public class JSInterface {
                         "district: '" + location.getDistrict() + "'," +
                         "street: '" + location.getStreet() + "'," +
                         "streetNumber: '" + location.getStreetNumber() + "'," +
+                        "coorType: '" + location.getCoorType() + "'," +
                         "locationDescribe: '" + location.getLocationDescribe() + "'" +
                         "}";
                 webView.loadUrl("javascript:__responseLocation({" + script + "})");
