@@ -35,7 +35,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string-array name="file_dialog_items">
         <item>拍照</item>
-        <item>摄像</item>
+     <!--   <item>摄像</item>-->
         <item>文件管理器</item>
         <item>取消</item>
     </string-array>

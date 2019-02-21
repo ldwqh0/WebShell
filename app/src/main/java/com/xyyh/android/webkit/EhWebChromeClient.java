@@ -55,14 +55,14 @@ public class EhWebChromeClient extends WebChromeClient {
                     cameraIntent.putExtra(MediaStore.Images.Media.CONTENT_TYPE, "image/jpeg");
                     activity.startActivityForResult(cameraIntent, IMAGE_CAPTURE);
                     break;
+//                case 1:
+//                    Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//                    String path_ = getDefaultPath() + File.separator + System.currentTimeMillis() + ".mp4";
+//                    videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempCameraFile = new File(path_)));
+//                    videoIntent.putExtra(MediaStore.Images.Media.CONTENT_TYPE, "video/mpeg4");
+//                    activity.startActivityForResult(videoIntent, IMAGE_CAPTURE);
+//                    break;
                 case 1:
-                    Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    String path_ = getDefaultPath() + File.separator + System.currentTimeMillis() + ".mp4";
-                    videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempCameraFile = new File(path_)));
-                    videoIntent.putExtra(MediaStore.Images.Media.CONTENT_TYPE, "video/mpeg4");
-                    activity.startActivityForResult(videoIntent, IMAGE_CAPTURE);
-                    break;
-                case 2:
                     EhWebChromeClient.this.openSystemDialog();
                     break;
                 default:

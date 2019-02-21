@@ -6,4 +6,5 @@ public abstract class Codes {
     public static final int QR_REQUEST = 1;
     public static final int IMAGE_CAPTURE = 2;
     public static final int VIDEO_CAPTURE = 3;
+    public static final int PERMISSION_REQUEST=100;
 }

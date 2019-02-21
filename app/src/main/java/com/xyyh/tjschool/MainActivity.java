@@ -20,6 +20,7 @@ import com.xyyh.android.webkit.JSInterface;
 import com.xyyh.android.webkit.WebViewActivity;
 
 import static com.xyyh.android.webkit.Codes.*;
+import static android.webkit.WebSettings.*;
 
 public class MainActivity extends WebViewActivity {
 
@@ -51,20 +52,25 @@ public class MainActivity extends WebViewActivity {
         });
         webView.setWebContentsDebuggingEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setCacheMode(LOAD_DEFAULT);
         webView.setOnKeyListener((v, keyCode, event) -> {
-            if (event.getAction() ==  KeyEvent.ACTION_DOWN) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
                     webView.goBack();
                     return true;
                 }
             }
-            return  false;
+            return false;
         });
         webView.addJavascriptInterface(new JSInterface(this), "Android");
         webView.loadUrl("http://101.200.59.182:88/cap/");
-//        webView.loadUrl("http://172.21.92.62/#/");
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        webView.reload();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
