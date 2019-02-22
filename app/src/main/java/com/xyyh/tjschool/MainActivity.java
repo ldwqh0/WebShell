@@ -63,7 +63,7 @@ public class MainActivity extends WebViewActivity {
             }
             return false;
         });
-        webView.loadUrl("http://101.200.59.182:88/cap/");
+        webView.loadUrl("http://192.168.2.192:1024/cap/");
     }
 
     @Override

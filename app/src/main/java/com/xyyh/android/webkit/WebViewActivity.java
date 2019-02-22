@@ -56,13 +56,12 @@ public abstract class WebViewActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST) {
-            for (int i = 0; i < grantResults.length; i++) {
-                if (grantResults[i] != PERMISSION_GRANTED) {
+            for (int result : grantResults) {
+                if (result != PERMISSION_GRANTED) {
                     this.finish();
                 }
             }
         }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
