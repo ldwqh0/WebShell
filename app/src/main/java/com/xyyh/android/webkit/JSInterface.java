@@ -83,6 +83,7 @@ public class JSInterface {
                         "latitude: " + location.getLatitude() + "," +
                         "longitude: " + location.getLongitude() +
                         "}," +
+                        "coorType: '" + location.getCoorType() + "'," +
                         "address: {" +
                         "addrStr: '" + location.getAddrStr() + "'," +
                         "country: '" + location.getCountry() + "'," +
@@ -91,7 +92,6 @@ public class JSInterface {
                         "district: '" + location.getDistrict() + "'," +
                         "street: '" + location.getStreet() + "'," +
                         "streetNumber: '" + location.getStreetNumber() + "'," +
-                        "coorType: '" + location.getCoorType() + "'," +
                         "locationDescribe: '" + location.getLocationDescribe() + "'" +
                         "}";
                 webView.loadUrl("javascript:__responseLocation({" + script + "})");

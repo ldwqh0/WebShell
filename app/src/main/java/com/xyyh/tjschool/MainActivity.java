@@ -1,14 +1,7 @@
 package com.xyyh.tjschool;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.KeyEvent;
@@ -63,7 +56,7 @@ public class MainActivity extends WebViewActivity {
             }
             return false;
         });
-        webView.loadUrl("http://101.200.59.182:88/cap/");
+        webView.loadUrl("http://192.168.1.21:1024/cap/");
     }
 
     @Override
