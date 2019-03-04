@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.KeyEvent;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -33,6 +35,8 @@ public class MainActivity extends WebViewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CookieSyncManager.createInstance(this);
+
         setContentView(R.layout.activity_main);
         this.webView = findViewById(R.id.webView);
         this.webView.setWebChromeClient(webChromeClient);
@@ -44,9 +48,13 @@ public class MainActivity extends WebViewActivity {
             }
         });
         webView.setWebContentsDebuggingEnabled(true);
+        // 启用js引擎
         webView.getSettings().setJavaScriptEnabled(true);
+        // 设置标准的缓存模式
         webView.getSettings().setCacheMode(LOAD_DEFAULT);
+        // 增加JS接口程序
         webView.addJavascriptInterface(new JSInterface(this), "Android");
+        // 增加按键处理程序，当用户按返回键时，可以返回到上一页，而不是退出当前activity
         webView.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
@@ -56,13 +64,20 @@ public class MainActivity extends WebViewActivity {
             }
             return false;
         });
-        webView.loadUrl("http://192.168.1.21:1024/cap/");
+        webView.loadUrl("http://101.200.59.182/cap/");
+    }
+
+    // 页面关闭时，清除会话信息
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        clearCookies();
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        webView.reload();
+    protected void onPause() {
+        super.onPause();
+        CookieSyncManager.getInstance().stopSync();
     }
 
     @Override
@@ -84,4 +99,12 @@ public class MainActivity extends WebViewActivity {
             webChromeClient.callBackVideo();
         }
     }
+
+    private void clearCookies() {
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeSessionCookie();
+        CookieSyncManager.getInstance().sync();
+        CookieSyncManager.getInstance().startSync();
+    }
+
 }
