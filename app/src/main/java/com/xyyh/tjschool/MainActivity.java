@@ -36,7 +36,6 @@ public class MainActivity extends WebViewActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CookieSyncManager.createInstance(this);
-
         setContentView(R.layout.activity_main);
         this.webView = findViewById(R.id.webView);
         this.webView.setWebChromeClient(webChromeClient);
@@ -64,7 +63,8 @@ public class MainActivity extends WebViewActivity {
             }
             return false;
         });
-        webView.loadUrl("http://101.200.59.182/cap/");
+//        webView.loadUrl("http://192.168.2.192:1024/cap/");
+        webView.loadUrl("http://182.138.101.12:9180/cap/");
     }
 
     // 页面关闭时，清除会话信息
