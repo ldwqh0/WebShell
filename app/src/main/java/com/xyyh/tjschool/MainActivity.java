@@ -64,7 +64,7 @@ public class MainActivity extends WebViewActivity {
             return false;
         });
 //        webView.loadUrl("http://101.200.59.182/cap/");
-        webView.loadUrl("http://182.138.101.12:9180/cap/");
+        webView.loadUrl("http://61.157.76.216:9180/cap/");
     }
 
     // 页面关闭时，清除会话信息
