@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">污染源上报</string>
+    <string name="app_name">高新区环境监管系统</string>
     <string name="button_add_calendar">添加事件至日历</string>
     <string name="button_add_contact">添加联系人</string>
     <string name="button_book_search">打开图书搜索</string>
